@@ -5,14 +5,20 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "mock-server": "node ./mock/server.ts",
+    "mock-dev": "concurrently \"npm run serve\" \"npm run mock-server\""
   },
   "dependencies": {
+    "@types/echarts": "^4.1.9",
+    "axios": "^0.19.0",
     "core-js": "^2.6.5",
+    "echarts": "^4.2.1",
+    "element-ui": "^2.4.5",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
     "vue-property-decorator": "^8.1.0",
-    "vue-router": "^3.0.3",
+    "vue-router": "^3.0.6",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
@@ -23,11 +29,16 @@
     "@vue/eslint-config-airbnb": "^4.0.0",
     "@vue/eslint-config-typescript": "^4.0.0",
     "babel-eslint": "^10.0.1",
+    "babel-plugin-component": "^1.1.1",
+    "concurrently": "^4.1.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "json-server": "^0.15.0",
+    "mockjs": "^1.0.1-beta3",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "typescript": "^3.4.3",
+    "vue-cli-plugin-element": "^1.0.1",
     "vue-template-compiler": "^2.6.10"
   }
 }
