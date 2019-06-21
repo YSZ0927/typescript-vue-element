@@ -22,6 +22,9 @@ module.exports = {
         'baseIndent': 1
       }
     ],
+    //  Expected 'this' to be used by class method
+    "class-methods-use-this": "off",
+    "allowForLoopAfterthoughts": true,
   },
   parserOptions: {
     parser: '@typescript-eslint/parser',
