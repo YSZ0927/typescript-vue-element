@@ -10,6 +10,7 @@
         Provide,
     } from 'vue-property-decorator';
     import * as echarts from 'echarts';
+    import 'echarts/map/js/china';
 
     @Component({
         name: 'CityMap',
@@ -18,10 +19,10 @@
         @Prop({ default: 'charts' })
         className!: string
 
-        @Prop({ default: '200px' })
+        @Prop({ default: '400px' })
         width!: string
 
-        @Prop({ default: '200px' })
+        @Prop({ default: '300px' })
         height!: string
 
         @Provide()
@@ -31,6 +32,14 @@
 
         // @Provide()
         // resizeHandler: any = null
+        private geoCoordMap: any = {
+            鄂尔多斯: [109.781327, 39.608266],
+            招远: [120.38, 37.35],
+            舟山: [122.207216, 29.985295],
+            齐齐哈尔: [123.97, 47.33],
+            盐城: [120.13, 33.38],
+            赤峰: [118.87, 42.28],
+        }
 
         private mounted() {
             this.initChart();
@@ -43,127 +52,143 @@
         }
 
         private resizeHandler(): void {
-            console.log(11111)
+            console.log(11111);
+        }
+
+        private convertData(data: any) {
+            const res = [];
+            for (let i = 0; i < data.length; i += 1) {
+                const geoCoord: any = this.geoCoordMap[data[i].name];
+                if (geoCoord) {
+                    res.push({
+                        name: data[i].name,
+                        value: geoCoord.concat(data[i].value),
+                    });
+                }
+            }
+            return res;
         }
 
         private setOptions(): void {
-            const xAxisData = [];
-            const data = [];
-            const data2 = [];
-            for (let i = 0; i < 50; i += 1) {
-                xAxisData.push(i);
-                data.push((Math.sin(i / 5) * (i / 5 - 10) + i / 6) * 5);
-                data2.push((Math.sin(i / 5) * (i / 5 + 10) + i / 6) * 3);
-            }
+            const data: any = [
+                {
+                    name: '鄂尔多斯',
+                    value: 102,
+                },
+                {
+                    name: '招远',
+                    value: 42,
+                },
+                {
+                    name: '舟山',
+                    value: 62,
+                },
+                {
+                    name: '齐齐哈尔',
+                    value: 80,
+                },
+                {
+                    name: '盐城',
+                    value: 75,
+                },
+                {
+                    name: '赤峰',
+                    value: 96,
+                },
+            ];
             this.chart.setOption({
-                backgroundColor: '#08263a',
-                grid: {
-                    left: '5%',
-                    right: '5%',
-                },
-                xAxis: [
-                    {
-                        show: false,
-                        data: xAxisData,
-                    },
-                    {
-                        show: false,
-                        data: xAxisData,
-                    },
-                ],
-                visualMap: {
-                    show: false,
-                    min: 0,
-                    max: 50,
-                    dimension: 0,
-                    inRange: {
-                        color: [
-                            '#4a657a',
-                            '#308e92',
-                            '#b1cfa5',
-                            '#f5d69f',
-                            '#f5898b',
-                            '#ef5055',
-                        ],
+                backgroundColor: '#404a59',
+                title: {
+                    text: '全国数据分布图',
+                    subtext: 'data from PM25.in',
+                    sublink: 'http://www.pm25.in',
+                    left: 'center',
+                    textStyle: {
+                        color: '#fff',
                     },
                 },
-                yAxis: {
-                    axisLine: {
-                        show: false,
+                tooltip: {
+                    trigger: 'item',
+                },
+                legend: {
+                    orient: 'vertical',
+                    y: 'bottom',
+                    x: 'right',
+                    data: ['数量'],
+                    textStyle: {
+                        color: '#fff',
                     },
-                    axisLabel: {
-                        textStyle: {
-                            color: '#4a657a',
+                },
+                geo: {
+                    map: 'china',
+                    label: {
+                        emphasis: {
+                            show: false,
                         },
                     },
-                    splitLine: {
-                        show: true,
-                        lineStyle: {
-                            color: '#08263f',
+                    roam: true,
+                    itemStyle: {
+                        normal: {
+                            areaColor: '#323c48',
+                            borderColor: '#111',
                         },
-                    },
-                    axisTick: {
-                        show: false,
+                        emphasis: {
+                            areaColor: '#2a333d',
+                        },
                     },
                 },
                 series: [
                     {
-                        name: 'back',
-                        type: 'bar',
-                        data: data2,
-                        z: 1,
+                        name: '数量',
+                        type: 'scatter',
+                        coordinateSystem: 'geo',
+                        data: this.convertData(data),
+                        symbolSize: (val: any) => val[2] / 10,
+                        label: {
+                            normal: {
+                                formatter: '{b}',
+                                position: 'right',
+                                show: false,
+                            },
+                            emphasis: {
+                                show: true,
+                            },
+                        },
                         itemStyle: {
                             normal: {
-                                opacity: 0.4,
-                                barBorderRadius: 5,
-                                shadowBlur: 3,
-                                shadowColor: '#111',
+                                color: '#ddb926',
                             },
                         },
                     },
                     {
-                        name: 'Simulate Shadow',
-                        type: 'line',
-                        data,
-                        z: 2,
-                        showSymbol: false,
-                        animationDelay: 0,
-                        animationEasing: 'linear',
-                        animationDuration: 1200,
-                        lineStyle: {
+                        name: 'Top 5',
+                        type: 'effectScatter',
+                        coordinateSystem: 'geo',
+                        data: this.convertData(data.sort((a: any, b: any) => b.value - a.value)
+                        .slice(0, 6)),
+                        symbolSize: (val: any) => val[2] / 10,
+                        showEffectOn: 'render',
+                        rippleEffect: {
+                            brushType: 'stroke',
+                        },
+                        hoverAnimation: true,
+                        label: {
                             normal: {
-                                color: 'transparent',
+                                formatter: '{b}',
+                                position: 'right',
+                                show: true,
                             },
                         },
-                        areaStyle: {
-                            normal: {
-                                color: '#08263a',
-                                shadowBlur: 50,
-                                shadowColor: '#000',
-                            },
-                        },
-                    },
-                    {
-                        name: 'front',
-                        type: 'bar',
-                        data,
-                        xAxisIndex: 1,
-                        z: 3,
                         itemStyle: {
                             normal: {
-                                barBorderRadius: 5,
+                                color: '#f4e925',
+                                shadowBlur: 10,
+                                shadowColor: '#333',
                             },
                         },
+                        zlevel: 1,
                     },
                 ],
-                animationEasing: 'elasticOut',
-                animationEasingUpdate: 'elasticOut',
-                animationDelay(idx: any) {
-                    return idx * 20;
-                },
-                animationDelayUpdate(idx: any) {
-                    return idx * 20;
-                },
             });
         }
 
