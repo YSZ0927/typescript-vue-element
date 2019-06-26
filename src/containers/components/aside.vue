@@ -129,4 +129,6 @@
     .el-menu{
         border: none;
     }
+    .left-menu-list{
+    }
 </style>
