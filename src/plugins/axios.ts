@@ -10,18 +10,18 @@ axios.interceptors.request.use(
 );
 
 axios.interceptors.response.use(
-    response => response,
+    response => response.data,
     err => (Promise.reject(err)),
 );
 
 const Plugin: PluginObject<any> = {
-    install: (Vue) => {
+    install: () => {
         Vue.$axios = axios;
     },
 };
-Plugin.install = (Vue) => {
-    Vue.$axios = axios
-    window.axios = axios
+Plugin.install = () => {
+    Vue.$axios = axios;
+    window.axios = axios;
     Object.defineProperties(Vue.prototype, {
         $axios: {
             get() {
@@ -29,6 +29,6 @@ Plugin.install = (Vue) => {
             },
         },
     });
-}
-Vue.use(Plugin)
+};
+Vue.use(Plugin);
 export default Plugin;
