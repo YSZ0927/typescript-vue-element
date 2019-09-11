@@ -10,6 +10,11 @@ import {
     MenuItem,
     MenuItemGroup,
     MessageBox,
+    Table,
+    TableColumn,
+    Tooltip,
+    Carousel,
+    CarouselItem,
 } from 'element-ui';
 
 Vue.use(Button);
@@ -21,5 +26,10 @@ Vue.use(MenuItem);
 Vue.use(Submenu);
 Vue.use(Aside);
 Vue.use(MenuItemGroup);
+Vue.use(Table);
+Vue.use(TableColumn);
+Vue.use(Tooltip);
+Vue.use(Carousel);
+Vue.use(CarouselItem);
 
 Vue.prototype.$msgbox = MessageBox;

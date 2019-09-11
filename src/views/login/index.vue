@@ -22,6 +22,7 @@
             </p>
             <p>
                 <el-button round type="primary"
+                    @click="login"
                     :class="['login-form-button',
                             {'login-form-active-btn': activeUserIcon && activePswIcon}]">
                     登 录
@@ -31,24 +32,7 @@
                 <em>注：忘记密码请联系管理员重置密码</em>
             </p>
         </div>
-        <canvas id="canvas" :style="{height: canHeight,width: canWidth}"></canvas>
-        <!-- <vue-particles
-            color="#fff"
-            class="login-particle"
-            :particleOpacity="0.7"
-            :particlesNumber="80"
-            shapeType="star"
-            :particleSize="4"
-            linesColor="#fff"
-            :linesWidth="1"
-            :lineLinked="true"
-            :lineOpacity="0.4"
-            :linesDistance="150"
-            :moveSpeed="3"
-            :hoverEffect="true"
-            hoverMode="grab"
-            :clickEffect="true"
-            clickMode="push"/> -->
+        <canvas id="canvas"></canvas>
     </div>
 </template>
 
@@ -77,14 +61,6 @@
             this.activePswIcon = val.passWord ? 1 : 0;
         }
 
-        get canHeight(): string {
-            return `${window.innerHeight}px`;
-        }
-
-        get canWidth(): string {
-            return `${window.innerWidth}px`;
-        }
-
         private mounted() {
             this.canvasInit();
         }
@@ -97,12 +73,12 @@
             const hue = 217;
             const stars: any = [];
             let count = 0;
-            const maxStars = 1300;
+            const maxStars = 100;
             const canvas2: any = document.getElementById('canvas');
             const ctx2: any = canvas2.getContext('2d');
-            canvas2.width = 700;
+            canvas2.width = 1000;
             canvas2.height = 700;
-            const half = canvas2.width / 2;
+            const half = canvas2.width / 10;
             const gradient2 = ctx2.createRadialGradient(half, half, 0, half, half, half);
             gradient2.addColorStop(0.025, '#CCC');
             gradient2.addColorStop(0.1, `hsl(${hue}, 61%, 33%)`);
@@ -130,19 +106,19 @@
                 return diameter / 2;
             }
             // eslint-disable-next-line
-            const Star = function () {
-                // const self: any = this;
-                // self.orbitRadius = random(0, maxOrbit(w, h));
-                // self.radius = random(60, self.orbitRadius) / 8;
-                // // 星星大小
-                // self.orbitX = w / 2;
-                // self.orbitY = h / 2;
-                // self.timePassed = random(0, maxStars);
-                // self.speed = random(0, self.orbitRadius) / 50000;
-                // // 星星移动速度
-                // self.alpha = random(2, 10) / 10;
+            const Star = function (this: any) {
+                const self: any = this;
+                self.orbitRadius = random(0, maxOrbit(w, h));
+                self.radius = random(60, self.orbitRadius) / 8;
+                // 星星大小
+                self.orbitX = w / 10;
+                self.orbitY = h / 10;
+                self.timePassed = random(0, maxStars);
+                self.speed = random(0, self.orbitRadius) / 50000;
+                // 星星移动速度
+                self.alpha = random(2, 10) / 10;
                 count += 1;
-                // stars[count] = self;
+                stars[count] = self;
             };
             // eslint-disable-next-line
             Star.prototype.draw = function () {
@@ -167,7 +143,7 @@
             function animation() {
                 ctx.globalCompositeOperation = 'source-over';
                 ctx.globalAlpha = 1; // 尾巴
-                ctx.fillStyle = `hsla(${hue}, 64%, 6%, 2)`;
+                ctx.fillStyle = `hsla(${hue}, 44%, 10%, 1)`;
                 ctx.fillRect(0, 0, w, h);
                 ctx.globalCompositeOperation = 'lighter';
                 for (let i = 1, l = stars.length; i < l; i += 1) {
@@ -175,7 +151,7 @@
                 }
                 window.requestAnimationFrame(animation);
             }
-            // animation();
+            animation();
         }
 
         private onFocus() {
@@ -185,15 +161,29 @@
         private onBulr() {
             console.log(this);
         }
+
+        private login(): void {
+            const that: any = this;
+            if (that.activeUserIcon && that.activePswIcon) {
+                that.$router.push({
+                    path: '/company/companyList',
+                });
+            }
+        }
     }
 </script>
 
 <style lang="stylus" scoped>
+#canvas{
+    height 100vh
+    width 100vw
+    vertical-align top
+}
 .login
     position relative
     // background url("~assets/images/background1.jpg") no-repeat
     // background-size 100% 100%
-    // background #000
+    background #000
     height 100vh
     &-form
         width 400px

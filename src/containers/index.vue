@@ -2,7 +2,7 @@
     <el-container class="worken-contain">
         <woken-aside></woken-aside>
         <el-container>
-            <el-header height="80px">
+            <el-header>
                 <woken-header></woken-header>
             </el-header>
             <el-main>
@@ -36,22 +36,16 @@
 </script>
 
 <style lang="stylus" scoped>
-    .el-main {
-        color: #333;
-        text-align: center;
-        line-height: 160px;
-    }
+    @import '../assets/styles/variable.styl';
     .el-header{
         padding: 0;
     }
     .worken-contain {
         height 100vh!important
         .el-main{
-            background rgba(0,0,0,.05)
+            background $color-bodyBackground
         }
         &-main{
-            background #fff
-            box-shadow 0 0 7px rgba(0,0,0,.4)
         }
     }
 </style>

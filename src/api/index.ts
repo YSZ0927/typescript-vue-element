@@ -9,4 +9,7 @@ Vue.prototype.$apis = {
     address: {
         addRess: `${prefix}/address`,
     },
+    goods: {
+        goodsList: `${prefix}/goodsList`,
+    },
 };

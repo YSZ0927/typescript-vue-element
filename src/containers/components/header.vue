@@ -13,16 +13,16 @@
 
 <style lang="stylus" scoped>
     .admin-common-header {
-        height: 80px;
+        height: 60px;
         display: flex;
         align-items: center;
         justify-content: flex-end;
         padding: 0 60px;
-        box-shadow:1px 2px 7px rgba(0,0,0,.4);
+        // box-shadow:1px 2px 7px rgba(0,0,0,.4);
         // background: rgba(84, 92, 100, .8);
         span{
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background: #ccc;
             img{
