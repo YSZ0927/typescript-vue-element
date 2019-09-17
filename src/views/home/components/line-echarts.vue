@@ -35,7 +35,7 @@
         }
 
         private resizeHandler(): void {
-            console.log(11111);
+            this.chart.resize();
         }
 
         private setOptions(): void {

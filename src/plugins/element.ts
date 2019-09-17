@@ -15,6 +15,8 @@ import {
     Tooltip,
     Carousel,
     CarouselItem,
+    Input,
+    Upload,
 } from 'element-ui';
 
 Vue.use(Button);
@@ -31,5 +33,7 @@ Vue.use(TableColumn);
 Vue.use(Tooltip);
 Vue.use(Carousel);
 Vue.use(CarouselItem);
+Vue.use(Input);
+Vue.use(Upload);
 
 Vue.prototype.$msgbox = MessageBox;
