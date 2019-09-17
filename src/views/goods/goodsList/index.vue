@@ -1,20 +1,30 @@
 <template>
   <div class="goods-list">
-      <div>
+      <div class="goods-list-banner">
           <goods-banner></goods-banner>
       </div>
-        <!-- <goods-table :tableData="tableData"></goods-table> -->
+      <div class="goods-list-conent">
+          <dl
+            v-for="item in tableData"
+            :key="item.goodsId"
+            class="goods-list-conent-item">
+                <dt>
+                    <img :src="item.avatar" alt="">
+                </dt>
+                <dd>
+                    <p>{{item.goodsName}}</p>
+                </dd>
+            </dl>
+      </div>
   </div>
 </template>
 
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
-    import goodsTable from './components/tableGoodsList.vue';
     import goodsBanner from './components/banner.vue';
 
     @Component({
         components: {
-            goodsTable,
             goodsBanner,
         },
     })
@@ -40,7 +50,34 @@
 </script>
 
 <style lang="stylus" scoped>
+// @import url('src/assets/styles/mixins.styl');
 .goods-list{
     background #f5f7f9
+    &-conent{
+        padding 20px 0
+        display flex
+        justify-content space-between
+        flex-wrap wrap
+        &-item{
+            background #fff
+            width 18%
+            border-radius 6px
+            margin-bottom 20px
+            dt{
+                img{
+                    width 100%
+                    vertical-align top
+                }
+            }
+            dd{
+                padding 10px;
+                p{
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
 }
 </style>

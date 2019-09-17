@@ -12,7 +12,7 @@
         </div>
         <div class="aside-menu" v-if="isCollapse">
             <div class="aside-menu-item" v-for="(item, i) in menuList" :key="i">
-                <span class="aside-menu-item-title">{{item.title}}</span>
+                <span class="aside-menu-item-title" v-if="item.title">{{item.title}}</span>
                 <p v-for="(el, j) in item.twoNav"
                     :key="j"
                     @click="changeMenu(el.path)"
@@ -45,7 +45,8 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue } from 'vue-property-decorator';
+    import { Component, Vue, Watch } from 'vue-property-decorator';
+    import { Route } from 'vue-router';
 
     @Component
     export default class WokenAside extends Vue {
@@ -74,7 +75,7 @@
                 twoNav: [
                     {
                         title: '用户分析',
-                        path: '/user',
+                        path: '/user/userAnalyze',
                     },
                 ],
             },
@@ -90,11 +91,16 @@
                     },
                     {
                         title: '新增商品',
-                        path: '/goods/addNewGoods',
+                        path: '/goods/editGoods',
                     },
                 ],
             },
         ];
+
+        @Watch('$route', { immediate: true })
+        private changeRouter(route: Route) {
+            this.activeIndex = route.path;
+        }
 
         private handleOpen() {
             const self: any = this;
@@ -142,7 +148,7 @@
                 height 40px
                 line-height 40px
                 right -50px
-                top 13px
+                top 11px
                 // background #545c64
                 border-radius 20px
                 // box-shadow:6px 0px 6px #333333;
@@ -174,21 +180,16 @@
             min-height: 400px;
         }
     }
-    .el-aside {
-        // background-color: rgb(84, 92, 100);
-        // box-shadow:2px 2px 6px #333333;
-        background-color: #fff;
-        font-size-adjust 14px;
-    }
     .aside-menu{
         font-size 14px
-        padding-right 20px
+        padding 20px 20px 0 0
+        transition .5s ease-out
         &-item{
             &-title{
                 display block
                 font-size 12px
                 color #ccc
-                padding 10px 20px
+                padding 15px 20px 5px
 
             }
             p{
@@ -217,6 +218,7 @@
     .aside-menu-icon{
         font-size 14px
         padding-top 20px
+        transition .5s ease-out
         &-item{
             .icon-p{
                 padding 5px 20px

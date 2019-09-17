@@ -11,5 +11,10 @@ export default [{
             name: 'goodsList',
             component: () => import('@/views/goods/goodsList/index.vue'),
         },
+        {
+            path: 'editGoods',
+            name: 'editGoods',
+            component: () => import('@/views/goods/editGoods/index.vue'),
+        },
     ],
 }];
