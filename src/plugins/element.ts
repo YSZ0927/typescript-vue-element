@@ -17,6 +17,11 @@ import {
     CarouselItem,
     Input,
     Upload,
+    Select,
+    Cascader,
+    Option,
+    OptionGroup,
+    Tag,
 } from 'element-ui';
 
 Vue.use(Button);
@@ -35,5 +40,10 @@ Vue.use(Carousel);
 Vue.use(CarouselItem);
 Vue.use(Input);
 Vue.use(Upload);
+Vue.use(Select);
+Vue.use(Cascader);
+Vue.use(Option);
+Vue.use(OptionGroup);
+Vue.use(Tag);
 
 Vue.prototype.$msgbox = MessageBox;
