@@ -70,7 +70,7 @@
             const ctx: any = canvas.getContext('2d');
             const w = window.innerWidth;
             const h = window.innerHeight;
-            const hue = 217;
+            const hue = 200; // 背景颜色
             const stars: any = [];
             let count = 0;
             const maxStars = 100;
@@ -111,8 +111,8 @@
                 self.orbitRadius = random(0, maxOrbit(w, h));
                 self.radius = random(60, self.orbitRadius) / 8;
                 // 星星大小
-                self.orbitX = w / 10;
-                self.orbitY = h / 10;
+                self.orbitX = w / 3;
+                self.orbitY = h / 3;
                 self.timePassed = random(0, maxStars);
                 self.speed = random(0, self.orbitRadius) / 50000;
                 // 星星移动速度
@@ -142,7 +142,7 @@
             }
             function animation() {
                 ctx.globalCompositeOperation = 'source-over';
-                ctx.globalAlpha = 1; // 尾巴
+                ctx.globalAlpha = 0.9; // 尾巴
                 ctx.fillStyle = `hsla(${hue}, 44%, 10%, 1)`;
                 ctx.fillRect(0, 0, w, h);
                 ctx.globalCompositeOperation = 'lighter';
