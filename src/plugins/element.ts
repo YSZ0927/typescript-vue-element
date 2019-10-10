@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import {
     Button,
+    Dialog,
     Container,
     Header,
     Main,
@@ -25,6 +26,7 @@ import {
 } from 'element-ui';
 
 Vue.use(Button);
+Vue.use(Dialog);
 Vue.use(Container);
 Vue.use(Header);
 Vue.use(Main);

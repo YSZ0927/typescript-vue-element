@@ -5,6 +5,7 @@ import router from '@/router/index';
 import '@/assets/styles/index.styl';
 import store from '@/store';
 import '@/plugins/element';
+import '@/components/index';
 import '@/plugins/axios';
 import '@/api/index';
 
