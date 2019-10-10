@@ -6,7 +6,7 @@
         </div>
         <h3>商家信息</h3>
         <div class="edit-goods-box">
-            <h5>轮播组图</h5>
+            <seller-info></seller-info>
         </div>
         <h3>图片上传</h3>
         <div class="edit-goods-box">
@@ -22,11 +22,13 @@
     import { Component, Vue } from 'vue-property-decorator';
     import uploadImg from './components/upload-img.vue'; // card
     import goodsInfo from './components/goods-info.vue'; // card
+    import sellerInfo from './components/seller-info.vue'; // card
 
     @Component({
         components: {
             uploadImg,
             goodsInfo,
+            sellerInfo,
         },
     })
     export default class editGoods extends Vue {

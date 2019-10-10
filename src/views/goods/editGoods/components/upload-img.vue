@@ -35,7 +35,7 @@
                 </div>
             </el-upload>
             <el-dialog :visible.sync="dialogVisible">
-            <img width="100%" :src="dialogImageUrl" alt="">
+                <img width="100%" :src="dialogImageUrl" alt="">
             </el-dialog>
     </div>
 </template>
