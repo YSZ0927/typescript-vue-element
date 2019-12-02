@@ -18,7 +18,7 @@
                     @click="changeMenu(el.path)"
                     :class="{'aside-menu-item-active': el.path=== activeIndex}">
                     <span class="">
-                        <i :class="['iconfont', item.icon]"></i>
+                        <i :class="['iconfont', el.icon]"></i>
                         {{el.title}}
                     </span>
                 </p>
@@ -36,7 +36,7 @@
                         class="icon-p"
                         @click="changeMenu(el.path)"
                         :class="{'aside-menu-icon-item-active': el.path=== activeIndex}">
-                        <i :class="['iconfont', item.icon]"></i>
+                        <i :class="['iconfont', el.icon]"></i>
                     </p>
                 </el-tooltip>
             </div>
@@ -45,25 +45,32 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue, Watch } from 'vue-property-decorator';
+    import {
+        Component,
+        Vue,
+        Watch,
+        Prop,
+    } from 'vue-property-decorator';
     import { Route } from 'vue-router';
 
     @Component
     export default class WokenAside extends Vue {
+        @Prop({ default: null }) private userInfo!: Object;
+
         private isCollapse: boolean = true;
 
-        private activeIndex: String = '/home';
+        private activeIndex: String = '/';
 
         private menuList: object[] = [
             {
                 title: '',
                 id: '0',
                 path: '',
-                icon: 'SA_fenxi',
                 twoNav: [
                     {
-                        title: '首页',
-                        path: '/home',
+                        title: '概况',
+                        path: '/',
+                        icon: 'SA_fenxi',
                     },
                 ],
             },
@@ -71,27 +78,28 @@
                 title: '用户',
                 id: '1',
                 path: '',
-                icon: 'SA_yonghuzu',
                 twoNav: [
                     {
-                        title: '用户分析',
+                        title: '客户画像',
                         path: '/user/userAnalyze',
+                        icon: 'SA_yonghuzu',
                     },
                 ],
             },
             {
-                title: '商品信息',
-                path: '',
+                title: '我的店铺',
                 id: '2',
-                icon: 'SA_iconsp1',
+                path: '',
                 twoNav: [
                     {
-                        title: '商品列表',
-                        path: '/goods/goodsList',
+                        title: '店铺信息',
+                        path: '/shop/shopInfo',
+                        icon: 'SA_yonghuzu',
                     },
                     {
-                        title: '新增商品',
-                        path: '/goods/editGoods',
+                        title: '销量分析',
+                        path: '/shop/shopInfo1',
+                        icon: 'SA_yonghuzu',
                     },
                 ],
             },
@@ -100,6 +108,19 @@
         @Watch('$route', { immediate: true })
         private changeRouter(route: Route) {
             this.activeIndex = route.path;
+        }
+
+        @Watch('userInfo', { immediate: true })
+        private getUserInfo(userInfo: any) {
+            const that: any = this;
+            const goods = {
+                title: '新增商品',
+                path: '/goods/editGoods',
+                icon: 'SA_yonghuzu',
+            };
+            if (userInfo.openStore) {
+                that.menuList[2].twoNav.splice(3, 0, goods);
+            }
         }
 
         private handleOpen() {

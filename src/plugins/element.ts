@@ -23,6 +23,9 @@ import {
     Option,
     OptionGroup,
     Tag,
+    Step,
+    Steps,
+    Message,
 } from 'element-ui';
 
 Vue.use(Button);
@@ -47,5 +50,8 @@ Vue.use(Cascader);
 Vue.use(Option);
 Vue.use(OptionGroup);
 Vue.use(Tag);
+Vue.use(Step);
+Vue.use(Steps);
 
 Vue.prototype.$msgbox = MessageBox;
+Vue.prototype.$message = Message;

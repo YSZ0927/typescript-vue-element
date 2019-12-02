@@ -28,7 +28,6 @@
         }
 
         private init() {
-            console.log(this);
             const self: any = this;
             self.$axios.post(self.$apis.address.addRess).then((res: any) => {
                 // this.$store.dispatch('user/userInfo', this.userinfo);

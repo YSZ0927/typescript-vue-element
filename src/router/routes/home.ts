@@ -2,7 +2,7 @@
 import Layout from '@/containers/index.vue';
 
 export default [{
-    path: '/home',
+    path: '/',
     name: 'home',
     component: Layout,
     children: [
