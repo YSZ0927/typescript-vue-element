@@ -62,7 +62,13 @@
         }
 
         private mounted() {
-            this.canvasInit();
+            console.log(this.userInfo);
+        }
+
+        get userInfo() {
+            const that: any = this;
+            const info = that.$store.state.user.userInfo;
+            return info;
         }
 
         private canvasInit() {
@@ -155,19 +161,17 @@
         }
 
         private onFocus() {
-            console.log(this);
+            // console.log(this);
         }
 
         private onBulr() {
-            console.log(this);
+            // console.log(this);
         }
 
         private login(): void {
             const that: any = this;
             if (that.activeUserIcon && that.activePswIcon) {
-                that.$router.push({
-                    path: '/company/companyList',
-                });
+                that.$store.dispatch('user/login', that.loginForm);
             }
         }
     }

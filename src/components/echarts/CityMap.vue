@@ -129,11 +129,11 @@
                     roam: true,
                     itemStyle: {
                         normal: {
-                            areaColor: '#323c48',
+                            areaColor: '#d1d1d1',
                             borderColor: '#111',
                         },
                         emphasis: {
-                            areaColor: '#2a333d',
+                            areaColor: '#fff',
                         },
                     },
                 },
@@ -208,6 +208,6 @@
     }
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
 
 </style>

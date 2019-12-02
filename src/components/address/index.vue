@@ -2,6 +2,7 @@
     <div class="eric-address">
         <el-cascader
             size="small"
+            v-model="addressValue"
             :props="addressProps"
             placeholder='选择省市区'
             :options="addressArray"></el-cascader>
@@ -10,7 +11,12 @@
 
 <script lang="ts">
     import axios from 'axios';
-    import { Component, Prop, Vue } from 'vue-property-decorator';
+    import {
+        Component,
+        Prop,
+        Vue,
+        Watch,
+    } from 'vue-property-decorator';
 
     const areaJson = '/address.json';
 
@@ -21,6 +27,14 @@
         @Prop() private columnsConfig!: object;
 
         private addressArray: object[] = [];
+
+        private addressValue: string = '';
+
+        @Watch('addressValue')
+        addressChange(val: any) {
+            console.log(val);
+        }
+
         private addressProps: object = {
             children: 'subarea',
             label: 'areaname',
@@ -33,8 +47,8 @@
 
         private getAddressJson() {
             const self: any = this;
-            axios.get(areaJson).then(res => {
-                self.addressArray = res.data;
+            axios.get(areaJson).then((res) => {
+                self.addressArray = res.data.data;
             });
         }
     }

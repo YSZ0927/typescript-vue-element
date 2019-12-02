@@ -1,6 +1,6 @@
 <template>
     <el-container class="worken-contain">
-        <woken-aside></woken-aside>
+        <woken-aside :userInfo="userInfo"></woken-aside>
         <el-container>
             <el-header>
                 <woken-header></woken-header>
@@ -31,6 +31,12 @@
             console.log(self.$route.fullPath);
             const date = Date.parse(new Date().toString());
             return self.$route.fullPath;
+        }
+
+        get userInfo() {
+            const that: any = this;
+            const info = that.$store.state.user.userInfo;
+            return info;
         }
     }
 </script>
